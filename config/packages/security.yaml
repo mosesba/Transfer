@@ -2,7 +2,9 @@ security:
     encoders:
         App\Entity\User:
             algorithm: auto
-
+    # role_hierarchy:
+    #     ROLE_ADMIN:       ROLE_USER
+    #    ROLE_SUPER_ADMIN: ROLE_ADMIN
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -12,10 +14,27 @@ security:
                 property: username
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/  #give full access to symph status barre for no security check
             security: false
-        main:
+        Login:
+            pattern: ^/api/login
+            stateless: true
             anonymous: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api: 
+            pattern : ^/api
+            stateless: true
+            guard :
+                authenticators:
+                     - lexik_jwt_authentication.jwt_token_authenticator
+
+        main:
+            anonymous : true
+
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -28,3 +47,12 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # matches /admin/users/*
+       # - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
+
+        # matches /admin/* except for anything matching the above rule
+       # - { path: '^/admin', roles: ROLE_ADMIN }
+       
+         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+ 
