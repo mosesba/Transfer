@@ -35,11 +35,11 @@ class UserFixtures extends Fixture
         // ...
         $this->addReference('role_sup_admin', $SupAdmin);
         $this->addReference('role_admin', $Admin);
-        $this->addReference('role_Caissier', $Caissier);
+        $this->addReference('role_caissier', $Caissier);
 
-        $roleSupAdmin = $this->getReference('role_Sup_Admin');
-        $roleAdmin = $this->getReference('role_Admin');
-        $roleCaissier = $this->getReference('role_Caissier');
+        $roleSupAdmin = $this->getReference('role_sup_admin');
+        $roleAdmin = $this->getReference('role_admin');
+        $roleCaissier = $this->getReference('role_caissier');
 
         //...
 
@@ -47,9 +47,12 @@ class UserFixtures extends Fixture
         $user->setNom("Ba");
         $user->setPrenom("Moussa");
         $user->setUsername("Moussa");
-        $user->setRoles("ROLE_SUP_ADMIN","ROLE_ADMIN","ROLE_CAISSIER");
+        $user->setRoles(array (
+            "ROLE_SUP_ADMIN","ROLE_ADMIN","ROLE_CAISSIER"
+        ));
         $user->setPassword($this->passwordEncoder->encodePassword($user,'login' ));
-        $user->setRole($RoleAdmin);
+        $user->setRole($roleAdmin);
+        
 
         // ...
         $manager->persist($user);

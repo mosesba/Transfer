@@ -61,6 +61,13 @@ class User implements UserInterface
      */
     private $isActive;
 
+
+    public function __construct () {
+        $this->isActive = true ;
+        $this->status = true ;
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
