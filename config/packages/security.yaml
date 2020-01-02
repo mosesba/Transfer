@@ -16,20 +16,20 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/  #give full access to symph status barre for no security check
             security: false
-        Login:
-            pattern: ^/api/login
-            stateless: true
-            anonymous: true
-            json_login:
-                check_path: /api/login_check
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
-        api: 
-            pattern : ^/api
-            stateless: true
-            guard :
-                authenticators:
-                     - lexik_jwt_authentication.jwt_token_authenticator
+      #  Login:
+      #      pattern: ^/api/login
+       #     stateless: true
+       #     anonymous: true
+        #    json_login:
+         #       check_path: /api/login_check
+          #      success_handler: lexik_jwt_authentication.handler.authentication_success
+           #     failure_handler: lexik_jwt_authentication.handler.authentication_failure
+     #   api: 
+      #      pattern : ^/api
+       #     stateless: true
+        #    guard :
+         #       authenticators:
+          #           - lexik_jwt_authentication.jwt_token_authenticator
 
         main:
             anonymous : true
@@ -52,7 +52,7 @@ security:
 
         # matches /admin/* except for anything matching the above rule
        # - { path: '^/admin', roles: ROLE_ADMIN }
-       
-         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+
+    #     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+     #    - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
  
