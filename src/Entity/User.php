@@ -56,6 +56,11 @@ class User implements UserInterface
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
 
     public function __construct () {
         $this->status = true ;
@@ -180,6 +185,18 @@ class User implements UserInterface
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

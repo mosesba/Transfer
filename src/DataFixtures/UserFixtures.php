@@ -46,12 +46,13 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setNom("Ba");
         $user->setPrenom("Moussa");
-        $user->setUsername("Moussa");
+        $user->setUsername("Moussa09");
+        $user->setEmail("moses@email.com");
         $user->setRoles(array (
             "ROLE_SUP_ADMIN","ROLE_ADMIN","ROLE_CAISSIER"
         ));
         $user->setPassword($this->passwordEncoder->encodePassword($user,'login' ));
-        $user->setRole($roleAdmin);
+        $user->setRole($roleSupAdmin);
         
 
         // ...

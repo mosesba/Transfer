@@ -2,13 +2,13 @@ security:
     encoders:
         App\Entity\User:
             algorithm: auto
-    # role_hierarchy:
-    #     ROLE_ADMIN:       ROLE_USER
+    role_hierarchy:
+         ROLE_ADMIN: ROLE_USER
     #    ROLE_SUPER_ADMIN: ROLE_ADMIN
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        entity_provider:
             entity:
                 class: App\Entity\User
                 property: username
@@ -16,20 +16,20 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/  #give full access to symph status barre for no security check
             security: false
-      #  Login:
-      #      pattern: ^/api/login
-       #     stateless: true
-       #     anonymous: true
-        #    json_login:
-         #       check_path: /api/login_check
-          #      success_handler: lexik_jwt_authentication.handler.authentication_success
-           #     failure_handler: lexik_jwt_authentication.handler.authentication_failure
-     #   api: 
-      #      pattern : ^/api
-       #     stateless: true
-        #    guard :
-         #       authenticators:
-          #           - lexik_jwt_authentication.jwt_token_authenticator
+        Login:
+            pattern: ^/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path: /api/login_check
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        api: 
+            pattern : ^/api
+            stateless: true
+            guard :
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
 
         main:
             anonymous : true
@@ -48,11 +48,13 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         # matches /admin/users/*
-       # - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
+        # - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
 
         # matches /admin/* except for anything matching the above rule
-       # - { path: '^/admin', roles: ROLE_ADMIN }
+        # - { path: '^/admin', roles: ROLE_ADMIN 
+        
+         - { path: ^/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
+         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        
 
-    #     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-     #    - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
  
