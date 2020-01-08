@@ -3,8 +3,8 @@ security:
         App\Entity\User:
             algorithm: auto
     role_hierarchy:
-         ROLE_ADMIN: ROLE_USER
-    #    ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -14,7 +14,7 @@ security:
                 property: username
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/  #give full access to symph status barre for no security check
+            pattern: ^/(_(profiler|wdt)|css|images|js)/  #gives full access to symph status barre for no security check
             security: false
         Login:
             pattern: ^/api/login
@@ -45,15 +45,17 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+          
         # - { path: ^/profile, roles: ROLE_USER }
         # matches /admin/users/*
         # - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
 
         # matches /admin/* except for anything matching the above rule
         # - { path: '^/admin', roles: ROLE_ADMIN 
-        
+
          - { path: ^/docs, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
+         - { path: ^/admin/users, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: [ROLE_SUP_ADMIN, IS_AUTHENTICATED_FULLY ]}
          - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
         
 

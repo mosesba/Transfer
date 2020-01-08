@@ -164,9 +164,12 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getRole(): ?Role
+    public function getRole(): array //?Role
     {
-        return $this->role;
+        $roles = $this->roles;
+        //garantee every user has at least ROLE_USER
+        $roles[]= 'ROLE_USER'
+        return array_unique($roles);
     }
 
     public function setRole(?Role $role): self
